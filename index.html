@@ -58,49 +58,40 @@ button {
 <div id="news" class="grid"></div>
 
 <script>
-let newsDiv = document.getElementById("news");
+async function getNews() {
+  try {
+    let res = await fetch("https://api.allorigins.win/raw?url=https://rss.cnn.com/rss/edition.rss");
+    let text = await res.text();
 
-let articles = [
-  {
-    title: "Global leaders meet to discuss economy",
-    url: "#",
-    image: "https://picsum.photos/400/300?1"
-  },
-  {
-    title: "Sports world reacts to major final",
-    url: "#",
-    image: "https://picsum.photos/400/300?2"
-  },
-  {
-    title: "Technology is changing the future",
-    url: "#",
-    image: "https://picsum.photos/400/300?3"
-  },
-  {
-    title: "Climate change concerns rising worldwide",
-    url: "#",
-    image: "https://picsum.photos/400/300?4"
+    let parser = new DOMParser();
+    let xml = parser.parseFromString(text, "text/xml");
+
+    let items = xml.querySelectorAll("item");
+
+    let newsDiv = document.getElementById("news");
+    newsDiv.innerHTML = "";
+
+    items.forEach((item, i) => {
+      if(i > 10) return;
+
+      let title = item.querySelector("title").textContent;
+      let link = item.querySelector("link").textContent;
+
+      let img = "https://picsum.photos/400/300?" + i;
+
+      newsDiv.innerHTML += `
+      <div class="news-card">
+        <img src="${img}">
+        <h4>${title}</h4>
+        <a href="${link}" target="_blank">Read more</a>
+      </div>
+      `;
+    });
+
+  } catch (error) {
+    document.getElementById("news").innerHTML = "Failed to load news.";
   }
-];
-
-articles.forEach(article => {
-  newsDiv.innerHTML += `
-  <div class="news-card">
-    <img src="${article.image}">
-    <h4>${article.title}</h4>
-    <a href="${article.url}" style="color:lightblue;">Read more</a>
-  </div>
-  `;
-});
-
-function toggleMode() {
-  document.body.style.background =
-    document.body.style.background === "white" ? "black" : "white";
-
-  document.body.style.color =
-    document.body.style.color === "black" ? "white" : "black";
 }
-</script>
 
-</body>
-</html>
+getNews();
+</script>
