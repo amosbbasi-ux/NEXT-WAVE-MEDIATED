@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE NEXT WAVE MEDIA</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: black;
+  color: white;
+}
+
+header {
+  padding: 15px;
+  background: black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  padding: 15px;
+}
+
+.news-card {
+  background: #111;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.news-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>THE NEXT WAVE MEDIA</h2>
+<button onclick="toggleMode()">🌙</button>
+</header>
+
+<h3 style="text-align:center;">International News</h3>
+
+<div id="news" class="grid"></div>
+
+<script>
+let newsDiv = document.getElementById("news");
+
+let articles = [
+  {
+    title: "Global leaders meet to discuss economy",
+    url: "#",
+    image: "https://picsum.photos/400/300?1"
+  },
+  {
+    title: "Sports world reacts to major final",
+    url: "#",
+    image: "https://picsum.photos/400/300?2"
+  },
+  {
+    title: "Technology is changing the future",
+    url: "#",
+    image: "https://picsum.photos/400/300?3"
+  },
+  {
+    title: "Climate change concerns rising worldwide",
+    url: "#",
+    image: "https://picsum.photos/400/300?4"
+  }
+];
+
+articles.forEach(article => {
+  newsDiv.innerHTML += `
+  <div class="news-card">
+    <img src="${article.image}">
+    <h4>${article.title}</h4>
+    <a href="${article.url}" style="color:lightblue;">Read more</a>
+  </div>
+  `;
+});
+
+function toggleMode() {
+  document.body.style.background =
+    document.body.style.background === "white" ? "black" : "white";
+
+  document.body.style.color =
+    document.body.style.color === "black" ? "white" : "black";
+}
+</script>
+
+</body>
+</html>
