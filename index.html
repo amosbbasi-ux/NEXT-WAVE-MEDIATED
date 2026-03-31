@@ -19,6 +19,10 @@ header {
   justify-content: space-between;
 }
 
+h2 {
+  margin: 0;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -37,6 +41,10 @@ header {
   border-radius: 10px;
 }
 
+a {
+  color: lightblue;
+}
+
 button {
   background: red;
   color: white;
@@ -45,7 +53,7 @@ button {
 }
 </style>
 </head>
-<div id="news"></div>
+
 <body>
 
 <header>
@@ -72,7 +80,7 @@ async function getNews() {
     newsDiv.innerHTML = "";
 
     items.forEach((item, i) => {
-      if(i > 10) return;
+      if (i > 10) return;
 
       let title = item.querySelector("title").textContent;
       let link = item.querySelector("link").textContent;
@@ -94,4 +102,15 @@ async function getNews() {
 }
 
 getNews();
+
+function toggleMode() {
+  document.body.style.background =
+    document.body.style.background === "white" ? "black" : "white";
+
+  document.body.style.color =
+    document.body.style.color === "black" ? "white" : "black";
+}
 </script>
+
+</body>
+</html>
